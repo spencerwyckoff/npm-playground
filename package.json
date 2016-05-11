@@ -34,7 +34,9 @@
     "push:origin": "git push --tags origin HEAD:master",
     "push:heroku": "git push heroku master",
     "push:s3": "s3-cli sync ./dist/ s3://example-com/prod-site/",
-    "launch:prod": "heroku open"
+    "launch:prod": "heroku open",
+    "deploy:prod": "npm run test:deploy -s && npm run build -s && npm run version:patch",
+    "test:deploy": "npm t -- -R dot"
   },
   "engines": {
     "node": "~5.2.0",
