@@ -1,0 +1,64 @@
+{
+  "name": "npm-playground",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "node index.js 4000",
+    "lint": "jshint --exclude ../lib/*.js",
+    "pretest": "npm run compile && npm run lint",
+    "test": "mocha test -u bdd -R spec",
+    "banana": "echo banana",
+    "clean": "rimraf lib/*",
+    "precompile": "npm run clean",
+    "compile:coffee": "coffee --compile --output ./lib ./src/coffeescripts",
+    "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescripts/tsCode.ts",
+    "compile": "npm run compile:coffee && npm run compile:ts",
+    "build:sass": "node-sass client/scss/demo.scss public/css/main.css",
+    "build:bundle": "browserify ./client/js/app.js | uglifyjs -mc > ./public/js/bundle.js",
+    "build:clean": "rimraf public/css/*, public/js/* ",
+    "prebuild": "npm run build:clean",
+    "build": "npm run build:sass && npm run build:bundle",
+    "watch:test": "npm run test -- -w -R min",
+    "watch:lint": "watch 'npm run lint' .",
+    "watch:server": "nodemon --ignore client --ignore public index.js",
+    "watch:coffee": "coffee --compile -w --output ./lib ./src/coffeescripts",
+    "watch:ts": "tsc -w --outDir ./lib --module commonjs ./src/typescripts/tsCode.ts",
+    "watch:bundle": "watchify ./client/js/app.js -o ./public/js/bundle.js -dv",
+    "watch:browser": "live-reload --port 9091 ./public/",
+    "watch": "npm run watch:test & npm run watch:bundle & npm run watch:server & npm run watch:browser",
+    "version:major": "npm version major",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch"
+  },
+  "jshintConfig": {
+    "esnext": true,
+    "noyield": true
+  },
+  "keywords": [
+    "npm",
+    "scripting"
+  ],
+  "author": "Spencer Wyckoff",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "coffee-script": "^1.10.0",
+    "jshint": "^2.9.2",
+    "live-reload": "^1.1.0",
+    "mocha": "^2.4.5",
+    "node-sass": "^3.7.0",
+    "nodemon": "^1.9.2",
+    "rimraf": "^2.5.2",
+    "should": "^8.3.1",
+    "supertest": "^1.2.0",
+    "typescript": "^1.8.10",
+    "uglifyjs": "^2.4.10",
+    "watch": "^0.18.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "koa": "^1.2.0"
+  }
+}
