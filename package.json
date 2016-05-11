@@ -33,7 +33,8 @@
     "version:patch": "npm version patch",
     "push:origin": "git push --tags origin HEAD:master",
     "push:heroku": "git push heroku master",
-    "push:s3": "s3-cli sync ./dist/ s3://example-com/prod-site/"
+    "push:s3": "s3-cli sync ./dist/ s3://example-com/prod-site/",
+    "launch:prod": "heroku open"
   },
   "engines": {
     "node": "~5.2.0",
